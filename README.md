@@ -2,6 +2,8 @@
 
 Filesystem Color Rules is a Godot editor plugin that assigns colors to folders in the FileSystem dock using regular-expression rules.
 
+![Adding rule example](./docs/filesystem-color-rules.gif)
+
 ## Setup
 
 Enable **Filesystem Color Rules** in **Project > Project Settings > Plugins**.
