@@ -4,28 +4,34 @@
 
 
 const COLORS := preload("./colors.gd")
+const FileSystemColorRule := preload("./filesystem_color_rule.gd")
 
 
 static func match_folders(
 	folders: Array[StringName],
-	rules: Dictionary[StringName, COLORS.Colors],
+	rules: Array[FileSystemColorRule],
 ) -> Dictionary[StringName, StringName]:
 	var matched_colors: Dictionary[StringName, StringName] = {}
 
-	for pattern in rules:
+	for rule in rules:
 		var regex := RegEx.new()
-		var compile_error := regex.compile(String(pattern))
+		var compile_error := regex.compile(String(rule.pattern))
 		if compile_error != OK:
-			push_error("Invalid filesystem color rule regex: %s" % pattern)
+			push_error(
+				"Invalid regex in filesystem color rule '%s': %s"
+				% [rule.name, rule.pattern]
+			)
 			continue
 
-		var color: COLORS.Colors = rules[pattern]
-		if not COLORS.COLOR_NAMES.has(color):
-			push_error("Invalid filesystem color rule color: %s" % color)
+		if not COLORS.COLOR_NAMES.has(rule.color):
+			push_error(
+				"Invalid color in filesystem color rule '%s': %s"
+				% [rule.name, rule.color]
+			)
 			continue
 
 		for folder in folders:
 			if regex.search(String(folder)) != null:
-				matched_colors[folder] = COLORS.COLOR_NAMES[color]
+				matched_colors[folder] = COLORS.COLOR_NAMES[rule.color]
 
 	return matched_colors

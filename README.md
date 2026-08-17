@@ -12,7 +12,7 @@ Create a `FileSystemColorRules` resource at:
 res://filesystem_color_rules.tres
 ```
 
-Add entries to its `rules` dictionary. Each key is a regular expression and each value is one of the supported folder colors.
+Add `FileSystemColorRule` resources to its `rules` array. Each rule has a name, description, regular-expression pattern, and folder color.
 
 ## Path Matching
 
@@ -54,7 +54,7 @@ Use `(?i)` at the beginning of a pattern for case-insensitive matching.
 
 ## Rule Precedence
 
-Rules are evaluated in dictionary order. When a folder matches multiple rules, the last matching rule wins. Put broad rules first and specific overrides later.
+Rules are evaluated in array order. When a folder matches multiple rules, the last matching rule wins. Put broad rules first and specific overrides later.
 
 ## Supported Colors
 
